@@ -41,9 +41,9 @@ class PostController extends Controller
             'user' => $user
         ]);
     }
-    //public function destroy(Post $post)
-    //{
-    //    $post->delete();
-    //    return redirect('/profile');
-    //}
+    public function destroy(Post $post)
+    {
+       $post->delete();
+       return redirect('profile');
+    }
 }

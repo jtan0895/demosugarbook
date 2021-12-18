@@ -23,14 +23,9 @@ Route::post('/profile', 'ProfileController@store')->name('profile.store');
 Route::get('/profile/edit', 'ProfileController@edit');
 Route::post('/profile/{id}/update', 'ProfileController@update')->name('profile.update');
 
-Route::get('/post/create', 'PostController@create');
-Route::post('/post', 'Postcontroller@store')->name('post.store');
-Route::get('/post/{postID}', 'Postcontroller@show');
-// Route::delete('/post', 'Postcontroller@destory');
-
-//Route::resource('post', App\Http\Controllers\PostController::class);
-Route::resource('resturant', App\Http\Controllers\ResturantController::class);
-Route::resource('review', App\Http\Controllers\ReviewController::class);
+Route::resource('post', PostController::class);
+Route::resource('restaurant', RestaurantController::class);
+Route::resource('review', ReviewController::class);
 
 
 Auth::routes();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReviewsTable extends Migration
+class CreateRestaurantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('restaurant_id');
             $table->unsignedBigInteger('user_id');
-            $table->text('comments');
-            $table->unsignedInteger('rating');
-            $table->unsignedBigInteger('spent');
+            $table->text('restname');
+            $table->text('restdescription');
+            $table->unsignedBigInteger('postal');
             $table->string('image');
             $table->timestamps();
 
-            $table->foreign('restaurant_id')->references('id')->on('restaurants');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -35,6 +33,6 @@ class CreateReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('restaurants');
     }
 }
