@@ -38,7 +38,7 @@ class RestaurantController extends Controller
         $data = request()->validate([
             'restname' => 'required',
             'restdescription' => 'required',
-            'postal' => 'required',
+            'postal' => ['required','min:6', 'max:6'],
             'restpic' => ['required', 'image'],
         ]);
 
@@ -98,12 +98,10 @@ class RestaurantController extends Controller
      */
     public function update($restaurantID)
     {
-        $data = request()->validate([
-            'restdescription' => 'required',
-            'postal' => 'required',
-            'restpic' => ['required', 'image'],
-            
-        ]);
+        //$data = request()->validate([
+        //    'restdescription' => 'required',
+        //    'postal' => 'required',   
+        //]);
 
         $user = Auth::user();
         $restaurant = Restaurant::where('id', $restaurantID)->first();

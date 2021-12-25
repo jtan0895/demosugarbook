@@ -18,7 +18,7 @@ class CreateRestaurantsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('restname');
             $table->text('restdescription');
-            $table->unsignedBigInteger('postal');
+            $table->string('postal')->unique();
             $table->string('image');
             $table->timestamps();
 
