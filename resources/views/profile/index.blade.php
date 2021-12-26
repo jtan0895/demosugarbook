@@ -16,7 +16,7 @@
             <span><strong>{{$restaurantscount}}</strong> restaurants</span>
             @if($profile != null)
                 <div class="pt-3">{{$profile->description}}</div>
-                <a href="/profile/edit" class="pt-3">Update</a>
+                <a href="/profile/edit" class="pt-3">Update profile</a>
             @else
                 <div><a href="/profile/create" class="pt-3">Create your profile!</a></div>
             @endif
@@ -33,17 +33,21 @@
             <div class="col-5">
             <h2> {{ $restaurant->restname }} </h2>
             <h5> {{ $restaurant->restdescription }} </h5>
-            <h5> {{ $restaurant->postal }} </h5> 
-            <a href="/restaurant/{{ $restaurant->id }}/edit" class="pt-3"> Edit restaurant details </a>
-        <form id="restdelete" action="{{ route('restaurant.destroy',['restaurant' => $restaurant->id]) }}" enctype="multipart/form-data" method="post">
+            <h5> {{ $restaurant->postal }} </h5>
             
-            @csrf
-            {{ method_field("DELETE")}}
-            <div class ="form-group">
-            <a href="#" onclick="event.preventDefault();
-                document.getElementById('restdelete').submit();"> Delete </a>
-            </div>
-            </form>
+            <a href="/restaurant/{{ $restaurant->id }}/edit"><button class="btn btn-outline-warning">Edit restaurant details</button> </a>
+            <div class="row pt-1"></div>
+
+            <div class="form-group row">
+                <form id="restdelete" action="{{ route('restaurant.destroy',['restaurant' => $restaurant->id]) }}" enctype="multipart/form-data" method="post">
+                @csrf
+                {{ method_field("DELETE")}}
+                <div class ="form-group">
+                <button type="submit" class="btn btn-outline-warning">Delete Restaurant</button>
+                </div>
+                </form>
+                </div>
+        
             </div>
 
         </div>

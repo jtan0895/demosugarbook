@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Providers;
+use App\Review;
+use App\User;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -25,6 +27,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('delete-review', function (User $user, Review $review) {
+            return $user->id === $review->user_id;
+        });
     }
 }

@@ -17,7 +17,13 @@
 
                     <div class="form-group postal">
                         <label for="postal">Postal Code</label>
-                        <input class="form-control" type="text" name="postal" id="postal" value="{{ $restaurant->postal }}">
+                        <input class="form-control @error('postal') is-invalid @enderror" type="text" name="postal" id="postal" value="{{ $restaurant->postal }}">
+
+                        @error('postal')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                     </div>
 
                     <div class="form-group row">
@@ -26,11 +32,12 @@
                     </div>
 
                     <div class="form-group row">
-                        <button type="submit" class="btn btn-primary">Update Restaurant</button>
+                        <button type="submit" class="btn btn-outline-warning">Update Restaurant</button>
                     </div>       
                 </form>
+                
             </div>
-        <div class="col-4"></div>
+        
     </div>
 </div>
 @endsection

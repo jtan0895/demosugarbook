@@ -23,6 +23,8 @@ Route::post('/profile', 'ProfileController@store')->name('profile.store');
 Route::get('/profile/edit', 'ProfileController@edit');
 Route::post('/profile/{id}/update', 'ProfileController@update')->name('profile.update');
 
+Route::get('/search', 'RestaurantController@search');
+
 Route::resource('post', PostController::class);
 Route::resource('restaurant', RestaurantController::class);
 Route::resource('review', ReviewController::class);

@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <button type="submit" class="btn btn-primary">Update profile</button>
+                        <button type="submit" class="btn btn-outline-warning">Update profile</button>
                     </div>                                  
                 </form>
             </div>

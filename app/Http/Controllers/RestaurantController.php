@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Restaurant;
+use App\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,7 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-       
+       //
     }
 
     /**
@@ -38,7 +39,7 @@ class RestaurantController extends Controller
         $data = request()->validate([
             'restname' => 'required',
             'restdescription' => 'required',
-            'postal' => ['required','min:6', 'max:6'],
+            'postal' => ['required','min:6', 'max:6', 'unique:restaurants'],
             'restpic' => ['required', 'image'],
         ]);
 
@@ -66,11 +67,20 @@ class RestaurantController extends Controller
      */
     public function show($restaurantID){
         $restaurant = Restaurant::where('id', $restaurantID)->first();
-        $user = Auth::user();
+        $reviews = Review::where('restaurant_id', $restaurantID)->orderBy('created_at', 'desc')->get();
+        $avgratings = Review::where('restaurant_id', $restaurantID)->avg('rating');
+        $avgspent = Review::where('restaurant_id', $restaurantID)->avg('spent');
+        //$user = Auth::user();
+
+        $roundratings = round($avgratings,0);
+        $roundspent = round($avgspent,0);
         
         return view('restaurant.show', [
             'restaurant' => $restaurant,
-            'user' => $user
+            'reviews'=>$reviews,
+            'avgratings'=>$roundratings,
+            'avgspent'=>$roundspent,
+            //'user' => $user
         ]);
     }
 
@@ -98,10 +108,10 @@ class RestaurantController extends Controller
      */
     public function update($restaurantID)
     {
-        //$data = request()->validate([
-        //    'restdescription' => 'required',
-        //    'postal' => 'required',   
-        //]);
+        $data = request()->validate([
+           'restdescription' => 'required',
+           'postal' => ['required','min:6', 'max:6', 'unique:restaurants'],
+        ]);
 
         $user = Auth::user();
         $restaurant = Restaurant::where('id', $restaurantID)->first();
@@ -131,5 +141,14 @@ class RestaurantController extends Controller
     {
         $restaurant->delete();
        return redirect('profile');
+    }
+
+    public function search()
+    {
+        $search_text = $_GET['query'];
+        $restaurants = Restaurant::where('restname', 'LIKE', '%'.$search_text.'%' )->get();
+
+        return view('restaurant.search', compact('restaurants'));
+
     }
 }

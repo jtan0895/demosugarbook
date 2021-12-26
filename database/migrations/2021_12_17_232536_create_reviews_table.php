@@ -20,7 +20,6 @@ class CreateReviewsTable extends Migration
             $table->text('comments');
             $table->unsignedInteger('rating');
             $table->unsignedBigInteger('spent');
-            $table->string('image');
             $table->timestamps();
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants');

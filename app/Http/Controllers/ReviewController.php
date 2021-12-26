@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Review;
+use App\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ReviewController extends Controller
 {
@@ -34,9 +36,28 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $data = request()->validate([
+            'comments' => 'required',
+            'rating' => ['required', 'integer', 'max:5'],
+            'spent' => 'required',
+            
+        ]);
+
+        $user = Auth::user();
+        $review = new Review();
+        
+        $review->user_id = $user->id;
+        $review->restaurant_id = request('restaurant_id');
+        $review->comments = request('comments');
+        $review->rating = request('rating');
+        $review->spent = request('spent');
+        $saved = $review->save();
+
+        if($saved){
+            return back();
+        }
     }
 
     /**
@@ -45,9 +66,15 @@ class ReviewController extends Controller
      * @param  \App\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function show(Review $review)
+    public function show($reviewID)
     {
-        //
+        $review = Review::where('id', $reviewID)->first();
+        $user = Auth::user();
+        
+        return view('review.show', [
+            'review' => $review,
+            'user' => $user
+        ]);
     }
 
     /**
@@ -56,9 +83,15 @@ class ReviewController extends Controller
      * @param  \App\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function edit(Review $review)
+    public function edit($reviewID)
     {
-        //
+        $review = Review::where('id', $reviewID)->first();
+        $user = Auth::user();
+        
+        return view('review.edit', [
+            'review' => $review,
+            'user' => $user
+        ]);
     }
 
     /**
@@ -68,9 +101,29 @@ class ReviewController extends Controller
      * @param  \App\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Review $review)
+    public function update($reviewID)
     {
-        //
+        $data = request()->validate([
+            'comments' => 'required',
+            'rating' => 'required',
+            'spent' => 'required',
+            //'restpic' => ['required', 'image'],
+        ]);
+
+        $user = Auth::user();
+        $review = Review::where('id', $reviewID)->first();
+        //$imagePath = request('restpic')->store('uploads', 'public');
+        
+        $review->comments = request('comments');
+        $review->rating = request('rating');
+        $review->spent = request('spent');
+        //$review->image = $imagePath;
+
+        $updated = $review->save();
+
+        if($updated){
+            return back();
+        }
     }
 
     /**
@@ -81,6 +134,14 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        $user = Auth::user();
+        if (Gate::forUser($user)->allows('delete-review', $review)) {
+            $review->delete();
+            return back();
+        }
+        if (Gate::forUser($user)->denies('delete-review', $review)) {
+            abort(403);
+        }
+       
     }
 }
