@@ -26,7 +26,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="headCSS navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand titlehead" href="{{ url('/') }}">
                     sugarbook
@@ -88,5 +88,48 @@
             @yield('content')
         </main>
     </div>
+
+    @section('footer')
+    <nav class="headCSS navbar navbar-expand-lg justify-content-between">
+        <div class="container ">
+        <div class="row">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item col-2">
+                <a class="anchor" href="#">Help</a>
+            </li>
+            <li class="nav-item col-5">
+                <a class="anchor" href="#">Send Feedback</a>
+            </li>
+            <li class="nav-item col-3">
+                <a class="anchor" href="#">Privacy</a>
+            </li>
+            <li class="nav-item col-3">
+                <a class="anchor" href="#">Terms</a>
+            </li>
+            </ul>
+        </div></div>
+        <div class="row">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            
+            <ul class="navbar-nav">
+            <p class="col-4 avg">Follow us:</p>
+            <li class="nav-item col-3">
+                <a class="anchor" href="#">Facebook</a>
+            </li>
+            <li class="nav-item col-3">
+                <a class="anchor" href="#">instagram</a>
+            </li>
+            <li class="nav-item col-3">
+                <a class="anchor" href="#">Tiktok</a>
+            </li>
+            </ul>
+        </div></div>
+        
+</nav>
+<p class="copy">Copyright 2021</p>
+        </div>
+            
+    @show
 </body>
 </html>

@@ -7,17 +7,17 @@
             <img src="/storage/{{ $restaurant->image }}" class="w-100"> 
             </div>
             <div class="col-4">
-                <h1> {{ $restaurant->restname }} </h1>
-                <h3> {{ $restaurant->restdescription }} </h3>
-                <h3> Postal:  {{ $restaurant->postal }} </h3>
-                <h3> Avg Rating:  {{ $avgratings }} </h3>
-                <h3> Avg Spending:  ${{ $avgspent }} </h3>                  
-            </div>
-        </div>
+                <h1 class="nameCSS2"> {{ ucfirst($restaurant->restname) }} </h1>
+                <h4> {{ ucfirst($restaurant->restdescription) }} </h3>
+                <h4> Postal:  <strong class="avg">{{ $restaurant->postal }} </strong> </h3>
+                <h4> Avg Rating:  <strong class="avg">{{ $avgratings }}</strong> </h4>
+                <h4> Avg Spending:  <strong class="avg">${{ $avgspent }}</strong> </h4>
+
+            
 
         <div class="row pt-2">
                 @if (Auth::check())
-                <a class="pt-3" data-bs-toggle="modal" data-bs-target="#addreview" href="#addreview"> Add review </a>
+                <a class="anchor pt-3" data-bs-toggle="modal" data-bs-target="#addreview" href="#addreview"> Add review </a>
                 @endif
         <!-- Modal -->
             <div class="modal fade" id="addreview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -57,11 +57,13 @@
                     </div>
                 </div>
             </div>
+            </div>
+        </div>
         </div> 
        
         <h2 class="pt-3"> Reviews</h2>
         @foreach($reviews as $review)
-        <div class="row pt-5">
+        <div class="row pt-5 boxup">
         
         <div class="col-4">
             <h6> {{ $review->comments }} </h6>
@@ -84,9 +86,11 @@
                 <button type="submit" class="btn btn-outline-warning">Delete</button>
                 </div>
                 </form>
+                
             @endif
             </div>
         </div>
+        <div class="pt-1"></div>
         @endforeach
         <!--<script>
             function myFunction() {

@@ -110,14 +110,12 @@ class RestaurantController extends Controller
     {
         $data = request()->validate([
            'restdescription' => 'required',
-           'postal' => ['required','min:6', 'max:6', 'unique:restaurants'],
         ]);
 
         $user = Auth::user();
         $restaurant = Restaurant::where('id', $restaurantID)->first();
 
         $restaurant->restdescription = request('restdescription');
-        $restaurant->postal = request('postal');
 
         if(request()->has('restpic')){
             $imagePath = request('restpic')->store('uploads', 'public');
@@ -145,10 +143,13 @@ class RestaurantController extends Controller
 
     public function search()
     {
+        if ($_GET['query'] != null){
         $search_text = $_GET['query'];
         $restaurants = Restaurant::where('restname', 'LIKE', '%'.$search_text.'%' )->get();
-
-        return view('restaurant.search', compact('restaurants'));
-
+            return view('restaurant.search', compact('restaurants'));
+        }
+        else{
+            return back();
+        }
     }
 }
