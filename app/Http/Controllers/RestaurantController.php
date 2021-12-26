@@ -145,7 +145,7 @@ class RestaurantController extends Controller
     {
         if ($_GET['query'] != null){
         $search_text = $_GET['query'];
-        $restaurants = Restaurant::where('restname', 'LIKE', '%'.$search_text.'%' )->get();
+        $restaurants = Restaurant::where('restname', 'LIKE', '%'.$search_text.'%' )->orwhere('postal', 'LIKE', '%'.$search_text.'%' )->get();
             return view('restaurant.search', compact('restaurants'));
         }
         else{

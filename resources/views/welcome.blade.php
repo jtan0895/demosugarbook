@@ -13,7 +13,7 @@
         <form id="query" action="{{ url('/search')}}" enctype="multipart/form-data" method="GET">
         @csrf
         <div class="input-group input-group-lg">
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="query" type="search" placeholder="Search Restaurant">
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="query" type="search" placeholder="Search Restaurant by Name or Postal">
         </div>
     </div></div>
     <div class="row pt-3 justify-content-center">

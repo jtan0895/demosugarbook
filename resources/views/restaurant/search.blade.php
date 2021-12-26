@@ -5,6 +5,8 @@
 <div class="container">     
 <div class="row pt-5"> 
     <div class="col-8">
+
+            @if (count($restaurants)>=1)
             @foreach($restaurants as $restaurant)
             <div class="row pt-5 boxup">
                 <div class="col-5">
@@ -21,6 +23,9 @@
             </div>
             <div class="pt-1"></div>
             @endforeach
+            @else
+            No search found.
+            @endif
     </div>
 </div>
 </div>

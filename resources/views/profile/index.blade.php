@@ -54,7 +54,7 @@
             </div>
 
         </div>
-        <div class="row pt-1"></div>
+        <div class="row pt-2"></div>
         @endforeach
         </div>
         
